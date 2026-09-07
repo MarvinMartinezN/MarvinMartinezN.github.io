@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marvin M. Martinez — Mechanical Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12161c;          /* drawing line */
+    --paper:#f7f5f0;        /* sheet */
+    --steel:#5d6672;        /* annotation gray */
+    --dye:#1f4d8f;          /* machinist layout dye blue */
+    --dye-soft:#e8eef7;
+    --rule:#c9c6bd;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* grid paper underlay */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(to right, rgba(93,102,114,.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(93,102,114,.07) 1px, transparent 1px);
+    background-size:26px 26px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .sheet{
+    position:relative;
+    z-index:1;
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px 100px;
+  }
+
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+  /* ---------- title block ---------- */
+  .titleblock{
+    border:1.5px solid var(--ink);
+    margin-top:40px;
+    background:rgba(255,255,255,.55);
+  }
+  .tb-main{
+    padding:38px 34px 30px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:"Archivo",sans-serif;
+    font-weight:800;
+    font-size:clamp(2.4rem,6.5vw,4.6rem);
+    line-height:.94;
+    letter-spacing:-.03em;
+    text-transform:uppercase;
+  }
+  h1 .thin{font-weight:400;color:var(--steel)}
+  .lede{
+    margin-top:22px;
+    max-width:52ch;
+    font-size:1.15rem;
+    line-height:1.55;
+    color:#28303a;
+  }
+  .tb-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .tb-cell{
+    padding:14px 18px;
+    border-right:1.5px solid var(--ink);
+    font-family:"JetBrains Mono",monospace;
+    font-size:12px;
+  }
+  .tb-cell:last-child{border-right:none}
+  .tb-cell span{
+    display:block;
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:5px;
+  }
+  .tb-cell a{color:var(--dye);text-decoration:none;border-bottom:1px solid rgba(31,77,143,.35)}
+  .tb-cell a:hover{border-bottom-color:var(--dye)}
+
+  /* ---------- section heads ---------- */
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin:72px 0 30px;
+    padding-bottom:10px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  .sec-head h2{
+    font-family:"Archivo",sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+  .sec-head .count{
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    color:var(--steel);
+    margin-left:auto;
+  }
+
+  /* ---------- project ---------- */
+  .proj{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:1.5px solid var(--ink);
+    margin-bottom:34px;
+    background:rgba(255,255,255,.55);
+  }
+  .proj.lead{grid-template-columns:1fr}
+
+  .proj-media{
+    border-right:1.5px solid var(--ink);
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+  }
+  .proj.lead .proj-media{
+    border-right:none;
+    border-bottom:1.5px solid var(--ink);
+    flex-direction:row;
+  }
+
+  /* photo slot */
+  .slot{
+    flex:1;
+    min-height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:26px;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0 12px,
+        rgba(93,102,114,.06) 12px 24px
+      );
+    border-right:1px dashed var(--rule);
+  }
+  .proj.lead .slot:last-child{border-right:none}
+  .proj:not(.lead) .slot{border-right:none;border-bottom:1px dashed var(--rule)}
+  .proj:not(.lead) .slot:last-child{border-bottom:none}
+  .slot p{
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    line-height:1.7;
+    color:var(--steel);
+    letter-spacing:.03em;
+  }
+  .slot code{
+    display:inline-block;
+    margin-top:6px;
+    padding:2px 6px;
+    background:var(--dye-soft);
+    color:var(--dye);
+    border-radius:2px;
+    font-size:10.5px;
+  }
+  .slot img{width:100%;height:100%;object-fit:cover;display:block}
+
+  .proj-body{padding:30px 30px 32px}
+  .proj-body h3{
+    font-family:"Archivo",sans-serif;
+    font-weight:800;
+    font-size:1.6rem;
+    letter-spacing:-.015em;
+    line-height:1.1;
+    text-transform:uppercase;
+  }
+  .proj-sub{
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-top:8px;
+  }
+  .proj-body p.copy{margin-top:18px;color:#28303a}
+
+  /* dimension-style spec strip */
+  .specs{
+    margin-top:22px;
+    border-top:1px solid var(--rule);
+    padding-top:16px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:14px 20px;
+  }
+  .spec{font-family:"JetBrains Mono",monospace;font-size:12px}
+  .spec span{
+    display:block;
+    font-size:9.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:4px;
+  }
+
+  /* revision note — the failure analysis, framed as a drawing revision */
+  .rev{
+    margin-top:24px;
+    border-left:3px solid var(--dye);
+    background:var(--dye-soft);
+    padding:16px 18px;
+  }
+  .rev .tag{
+    font-family:"JetBrains Mono",monospace;
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--dye);
+    display:block;
+    margin-bottom:7px;
+  }
+  .rev p{font-size:.97rem;line-height:1.55;color:#1e2833}
+
+  /* ---------- secondary list ---------- */
+  .minor{
+    border:1.5px solid var(--ink);
+    background:rgba(255,255,255,.55);
+  }
+  .minor-item{
+    display:grid;
+    grid-template-columns:56px 1fr;
+    border-bottom:1px solid var(--rule);
+  }
+  .minor-item:last-child{border-bottom:none}
+  .minor-num{
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    color:var(--steel);
+    padding:22px 0 0 16px;
+  }
+  .minor-txt{padding:20px 26px 22px}
+  .minor-txt h4{
+    font-family:"Archivo",sans-serif;
+    font-weight:600;
+    font-size:1.02rem;
+    letter-spacing:.01em;
+  }
+  .minor-txt p{margin-top:7px;font-size:.97rem;color:#333c47}
+  .minor-txt .tools{
+    margin-top:10px;
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    color:var(--steel);
+  }
+
+  /* ---------- capability columns ---------- */
+  .caps{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    border:1.5px solid var(--ink);
+    background:rgba(255,255,255,.55);
+  }
+  .cap{padding:22px 24px 26px;border-right:1px solid var(--rule)}
+  .cap:last-child{border-right:none}
+  .cap h5{
+    font-family:"JetBrains Mono",monospace;
+    font-size:10px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--dye);
+    margin-bottom:12px;
+  }
+  .cap ul{list-style:none;font-size:.96rem;line-height:1.85}
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:76px;
+    border-top:1.5px solid var(--ink);
+    padding-top:22px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 34px;
+    align-items:baseline;
+    font-family:"JetBrains Mono",monospace;
+    font-size:12px;
+    color:var(--steel);
+  }
+  footer a{color:var(--dye);text-decoration:none;border-bottom:1px solid rgba(31,77,143,.35)}
+  footer a:hover{border-bottom-color:var(--dye)}
+  footer .grow{margin-left:auto}
+
+  a:focus-visible,.slot:focus-visible{outline:2px solid var(--dye);outline-offset:3px}
+
+  @media (max-width:820px){
+    .tb-grid{grid-template-columns:repeat(2,1fr)}
+    .tb-cell:nth-child(2){border-right:none}
+    .tb-cell:nth-child(1),.tb-cell:nth-child(2){border-bottom:1.5px solid var(--ink)}
+    .proj,.proj.lead{grid-template-columns:1fr}
+    .proj-media{border-right:none;border-bottom:1.5px solid var(--ink);flex-direction:column}
+    .proj.lead .proj-media{flex-direction:column}
+    .slot{border-right:none;border-bottom:1px dashed var(--rule)}
+    .slot:last-child{border-bottom:none}
+    .cap{border-right:none;border-bottom:1px solid var(--rule)}
+    .cap:last-child{border-bottom:none}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .proj,.minor,.caps{animation:rise .5s ease both}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ============ TITLE BLOCK ============ -->
+  <div class="titleblock">
+    <div class="tb-main">
+      <div class="eyebrow mono">Mechanical Engineering &nbsp;/&nbsp; Physics &nbsp;/&nbsp; MIT 2027</div>
+      <h1>Marvin M.<br><span class="thin">Martinez</span></h1>
+      <p class="lede">
+        I build mechanisms. Physics coursework gave me the analysis; the machine shop taught me
+        what actually survives contact with tolerances, torque, and a deadline.
+        Below is what I've designed, machined, and debugged.
+      </p>
+    </div>
+    <div class="tb-grid">
+      <div class="tb-cell"><span>Focus</span>Design &middot; Mechanisms &middot; Controls</div>
+      <div class="tb-cell"><span>Location</span>Cambridge, MA</div>
+      <div class="tb-cell"><span>Email</span><a href="mailto:marvinmn@mit.edu">marvinmn@mit.edu</a></div>
+      <div class="tb-cell"><span>Profile</span><a href="#" id="li">LinkedIn →</a></div>
+    </div>
+  </div>
+
+  <!-- ============ LEAD PROJECT ============ -->
+  <div class="sec-head">
+    <h2>Selected Work</h2>
+    <span class="count mono">01 / 04</span>
+  </div>
+
+  <article class="proj lead">
+    <div class="proj-media">
+      <!-- PHOTO SLOT 1 -->
+      <div class="slot">
+        <p>PHOTO — full machine<br>
+          <code>img/robot-full.jpg</code></p>
+      </div>
+      <!-- PHOTO SLOT 2 -->
+      <div class="slot">
+        <p>PHOTO — nut gripper detail<br>
+          <code>img/robot-gripper.jpg</code></p>
+      </div>
+      <!-- PHOTO SLOT 3 -->
+      <div class="slot">
+        <p>VIDEO or PHOTO — mechanism in motion<br>
+          <code>img/robot-action.jpg</code></p>
+      </div>
+    </div>
+
+    <div class="proj-body">
+      <h3>Pit-Stop Robot</h3>
+      <div class="proj-sub mono">2.007 Design &amp; Manufacturing I &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Individual build</div>
+
+      <p class="copy">
+        A Formula-1-themed competition machine built to perform a pit stop: loosen and retighten a wheel nut,
+        then pull a 13&nbsp;lb wheel off the mount and set it back. Three subsystems, all designed and machined
+        from raw stock inside a 12&times;12&times;16&nbsp;in envelope and a 12&nbsp;lb material budget.
+      </p>
+      <p class="copy">
+        The chassis translates fore and aft to clear the wheel. A hexagonal socket driven through a custom
+        3:2 acrylic gearbox handles the nut. The wheel itself is caught between two Delrin jaws pulled inward
+        by a threaded steel rod on a chain drive. Every part was turned, milled, drilled, threaded, or
+        laser-cut by hand — including turning round stock down to hex profile.
+      </p>
+
+      <div class="specs">
+        <div class="spec"><span>Envelope</span>12 × 12 × 16 in</div>
+        <div class="spec"><span>Mass budget</span>12 lb</div>
+        <div class="spec"><span>Gearbox</span>3:2, laser-cut acrylic</div>
+        <div class="spec"><span>Actuation</span>LDO motors, chain drive</div>
+        <div class="spec"><span>Materials</span>Al sheet, Delrin, steel rod</div>
+        <div class="spec"><span>CAD</span>Fusion 360</div>
+      </div>
+
+      <div class="rev">
+        <span class="tag mono">Rev. A — failure analysis</span>
+        <p>
+          Support screws added to the gearbox on the final build day over-constrained the assembly.
+          Output torque dropped below the ~0.1&nbsp;N·m needed to break the nut loose, and I hadn't
+          re-tested after the change. The fix is procedural, not structural: tighten incrementally and
+          check shaft freedom by hand between turns. The wheel jaws also needed better geometry —
+          two flat blocks grip a curved tire inefficiently. Both went into the next revision.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ SECONDARY WORK ============ -->
+  <div class="sec-head">
+    <h2>Also Built</h2>
+    <span class="count mono">02–04 / 04</span>
+  </div>
+
+  <div class="minor">
+    <div class="minor-item">
+      <div class="minor-num mono">02</div>
+      <div class="minor-txt">
+        <h4>Line-Following Robot</h4>
+        <p>
+          Autonomous line tracker built for Introduction to Electronics — reflectance sensing,
+          circuit assembly and soldering, and control logic written and tuned on the bench.
+        </p>
+        <div class="tools mono">Arduino · sensor wiring · soldering</div>
+      </div>
+    </div>
+
+    <div class="minor-item">
+      <div class="minor-num mono">03</div>
+      <div class="minor-txt">
+        <h4>PID Control Systems</h4>
+        <p>
+          Controllers designed and tuned for a one-wheel balancing robot and for precision angular
+          positioning, modeled and validated in simulation before hardware.
+        </p>
+        <div class="tools mono">MATLAB · Simulink · PID tuning</div>
+      </div>
+    </div>
+
+    <div class="minor-item">
+      <div class="minor-num mono">04</div>
+      <div class="minor-txt">
+        <h4>Skateboard Storage Drawer</h4>
+        <p>
+          Team project in an introductory design course: a standard drawer unit reworked to hold and
+          release skateboards, taken from concept through fabrication and assembly.
+        </p>
+        <div class="tools mono">Design for fabrication · team build</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CAPABILITIES ============ -->
+  <div class="sec-head">
+    <h2>Shop &amp; Tools</h2>
+    <span class="count mono">Reference</span>
+  </div>
+
+  <div class="caps">
+    <div class="cap">
+      <h5>Machining</h5>
+      <ul>
+        <li>Lathe — turning, threading</li>
+        <li>Mill</li>
+        <li>Drill press, band saw</li>
+        <li>Laser cutter</li>
+        <li>Sheet metal, riveting</li>
+      </ul>
+    </div>
+    <div class="cap">
+      <h5>Design &amp; Analysis</h5>
+      <ul>
+        <li>Fusion 360</li>
+        <li>Mechanics of materials</li>
+        <li>Dynamics, vibrations</li>
+        <li>Control theory</li>
+        <li>Thermal-fluids</li>
+      </ul>
+    </div>
+    <div class="cap">
+      <h5>Computation</h5>
+      <ul>
+        <li>Python — NumPy, SciPy</li>
+        <li>MATLAB &amp; Simulink</li>
+        <li>Arduino</li>
+        <li>UNIX / HPC (SLURM)</li>
+      </ul>
+    </div>
+    <div class="cap">
+      <h5>Languages</h5>
+      <ul>
+        <li>Spanish — native</li>
+        <li>English — fluent</li>
+        <li>Norwegian — intermediate</li>
+        <li>Latin — intermediate</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <div>Marvin M. Martinez</div>
+    <div><a href="mailto:marvinmn@mit.edu">marvinmn@mit.edu</a></div>
+    <div><a href="#" id="li2">LinkedIn</a></div>
+    <div><a href="#" id="gh">GitHub</a></div>
+    <div class="grow mono">Sheet 1 of 1 · Rev. 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
